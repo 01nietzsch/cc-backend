@@ -18,7 +18,7 @@ FEATURE_NAMES = [
 ]
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
+CORS(app)  # Allow all origins
 
 @app.route("/predict", methods=["POST"])
 def predict():
