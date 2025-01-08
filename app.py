@@ -19,10 +19,17 @@ FEATURE_NAMES = [
 ]
 
 app = Flask(__name__)
-CORS(app, origins=["https://cc-landing-plum.vercel.app"])
 
-@app.route("/predict", methods=["POST"])
+# Set CORS to allow requests only from your Vercel frontend URL
+frontend_url = os.environ.get("FRONTEND_URL", "https://cc-landing-plum.vercel.app")  # Use environment variable or hardcode
+CORS(app, origins=[frontend_url])
+
+@app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
+    if request.method == "OPTIONS":
+        # This is the pre-flight CORS request, respond with 200 OK
+        return jsonify({"message": "CORS pre-flight successful"}), 200
+
     try:
         # Parse input data
         data = request.json.get("values")
@@ -50,4 +57,5 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
+    # Flask will bind to port 5000 in development, or use the PORT environment variable in production (Heroku)
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
