@@ -1,0 +1,37 @@
+# Set default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted to LF upon checkout.
+*.c text
+*.h text
+*.cpp text
+*.hpp text
+*.txt text
+*.md text
+*.html text
+*.css text
+*.js text
+*.json text
+*.xml text
+
+# Declare files that will always have CRLF line endings on checkout.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Declare files that will always have LF line endings on checkout.
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files should be treated as binary and not modified.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.exe binary
+*.dll binary
