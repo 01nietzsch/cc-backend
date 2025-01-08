@@ -19,7 +19,7 @@ FEATURE_NAMES = [
 ]
 
 app = Flask(__name__)
-CORS(app)  # Allow all origins
+CORS(app, origins=["https://cc-landing-plum.vercel.app"])
 
 @app.route("/predict", methods=["POST"])
 def predict():
