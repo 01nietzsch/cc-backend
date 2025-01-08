@@ -3,7 +3,6 @@ from flask_cors import CORS
 import joblib
 import pandas as pd
 
-
 # Load the pre-trained models
 MODEL1_PATH = "yield_strength_regressor.pkl"
 MODEL2_PATH = "tensile_strength_regressor.pkl"
@@ -19,7 +18,7 @@ FEATURE_NAMES = [
 ]
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})  # Allow all origins
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -34,15 +33,16 @@ def predict():
         # Convert input to DataFrame with proper feature names
         input_df = pd.DataFrame([data], columns=FEATURE_NAMES)
 
-        # Predict using all three models
+        # Make predictions
         prediction_model1 = model1.predict(input_df)[0]
         prediction_model2 = model2.predict(input_df)[0]
-        prediction_model3 = model3.predict(input_df)[0]  # Prediction for the third model
+        prediction_model3 = model3.predict(input_df)[0]  # Predict with the third model
 
+        # Return predictions as JSON
         return jsonify({
             "prediction_model1": prediction_model1,
             "prediction_model2": prediction_model2,
-            "prediction_model3": prediction_model3  # Include the third model's prediction
+            "prediction_model3": prediction_model3
         })
 
     except Exception as e:
