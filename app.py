@@ -21,8 +21,8 @@ FEATURE_NAMES = [
 app = Flask(__name__)
 
 # Set CORS to allow requests only from your Vercel frontend URL
-frontend_url = os.environ.get("FRONTEND_URL", "https://cc-landing-plum.vercel.app")  # Use environment variable or hardcode
-CORS(app, origins=[frontend_url])
+# frontend_url = os.environ.get("FRONTEND_URL", "https://cc-landing-plum.vercel.app")  # Use environment variable or hardcode
+CORS(app)
 
 @app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
